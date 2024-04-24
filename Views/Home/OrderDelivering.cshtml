@@ -1,0 +1,27 @@
+﻿@model DeliveryHistory
+<table>
+    <tr>
+        <th>Mã</th>
+        <th>Thời gian nhận</th>
+    </tr>
+    @foreach (var order in Model.ListGoing)
+    {
+        <tr>
+            <td>@order.ID</td>
+            <td>@order.Date</td>
+            <td><a type="" class="btn btn-primary" href="@Url.Action("OrderDetail", "Home", new { orderID = @order.ID })">Chi tiết đơn hàng</a></td>
+        </tr>
+    }
+</table>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 7px;
+        text-align: left;
+    }
+</style>
+

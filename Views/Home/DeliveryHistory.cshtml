@@ -1,0 +1,38 @@
+﻿@model DeliveryHistory
+@{
+}
+<table class="table-striped">
+    <tr>
+        <th>Mã</th>
+        <th>Thời gian nhận</th>
+        <th>Trạng thái</th>
+    </tr>
+    @foreach (var order in Model.OrderHistory)
+    {
+        <tr onclick="redirectTo('@Url.Action("OrderDetail", "Home", new { orderID = @order.ID })')">
+            <td>@order.ID</td>
+            <td>@order.Date</td>
+            @if(order.Completed == true)
+            {
+                <td>Đã hoàn thành</td>
+            }
+            else {<td>Đang giao</td>}
+        </tr>
+    }
+</table>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 7px;
+        text-align: left;
+    }
+</style>
+<script>
+    function redirectTo(url) {
+        window.location.href = url;
+    }
+</script>

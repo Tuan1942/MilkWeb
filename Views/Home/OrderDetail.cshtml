@@ -1,0 +1,55 @@
+﻿@model ReceiveOrder
+@{
+    var order = Model.order;
+    var customer = Model.customer;
+}
+<table class="table tab-content">
+    <tr>
+        <td id="AttributeName">Tên khách hàng:</td>
+        <td id="Value">@customer.Name</td>
+    </tr>
+    <tr>
+        <td id="AttributeName">Địa chỉ:</td>
+        <td id="Value">@order.Address </td>
+    </tr>
+    <tr>
+        <td id="AttributeName">Ngày nhận đơn:</td>
+        <td id="Value">@order.Date</td>
+    </tr>
+    <tr>
+        <td id="AttributeName">Đơn giá:</td>
+        <td id="Value">@order.Price</td>
+    </tr>
+    <tr>
+        <td id="AttributeName">Điện thoại:</td>
+        <td id="Value">@customer.Phone</td>
+    </tr>
+</table>
+@if (@ViewBag.Staff_ID != "")
+{
+    @if (order.Completed == false && order.Canceled == false)
+    {
+        <div id="Button-group">
+            <a style="" class="btn btn-primary" href="@Url.Action("CompleteOrder", "Home", new { orderID = @order.ID })">Hoàn thành</a>
+            <a style="" class="btn btn-danger" href="@Url.Action("CancelOrder", "Home", new { orderID = @order.ID })">Huỷ đơn</a>
+        </div>
+    }
+}
+<style>
+    #AttributeName {
+        text-align: left;
+    }
+
+    #Value {
+        text-align: right;
+    }
+
+    #Button-group {
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 20px); 
+        padding: 10px;
+    }
+</style>

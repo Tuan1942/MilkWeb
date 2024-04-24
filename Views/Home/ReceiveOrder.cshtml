@@ -1,0 +1,44 @@
+﻿@model ReceiveOrder
+@{
+    var order = Model.order;
+}
+<table id="OrderDetail">
+    <tr>
+        <td>Mã đơn hàng: </td>
+        <td>@order.ID</td>
+    </tr>
+    <tr>
+        <td>Tên khách hàng: </td>
+        <td>@Model.customer.Name</td>
+    </tr>
+    <tr>
+        <td>Ngày đặt hàng: </td>
+        <td>@order.Date</td>
+    </tr>
+    <tr>
+        <td>Địa chỉ: </td>
+        <td>@order.Address</td>
+    </tr>
+    <tr>
+        <td>Đơn giá: </td>
+        <td>@order.Price</td>
+    </tr>
+    <tr>
+        <td>Điện thoại: </td>
+        <td>@Model.customer.Phone</td>
+    </tr>
+</table>
+<table id="StaffList" class="table tab-content">
+    @foreach (var staff in Model.Staffs)
+    {
+        <tr>
+            <td>@staff.FirstName @staff.LastName</td>
+            <td><a class="btn btn-primary" href="@Url.Action("Specify", "Home", new { orderID = @order.ID, staffID = staff.ID })">Chỉ định nhân viên</a></td>
+        </tr>
+    }
+</table>
+<style>
+    td {
+        padding: 12px;
+    }
+</style>
