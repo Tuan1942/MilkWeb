@@ -271,3 +271,4 @@ C:\Users\admin\Desktop\MilkWeb\MilkWeb\obj\Debug\net8.0\refint\MilkWeb.dll
 C:\Users\admin\Desktop\MilkWeb\MilkWeb\obj\Debug\net8.0\MilkWeb.pdb
 C:\Users\admin\Desktop\MilkWeb\MilkWeb\obj\Debug\net8.0\MilkWeb.genruntimeconfig.cache
 C:\Users\admin\Desktop\MilkWeb\MilkWeb\obj\Debug\net8.0\ref\MilkWeb.dll
+C:\Users\admin\Desktop\MilkWeb\MilkWeb\obj\Debug\net8.0\MilkWeb.sourcelink.json

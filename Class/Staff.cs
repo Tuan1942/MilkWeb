@@ -59,6 +59,7 @@ namespace MilkWeb.Class
                                     staff.ID = reader.GetString(0);
                                     staff.FirstName = reader.GetString(1);
                                     staff.LastName = reader.GetString(2);
+                                    if (GetRoleID(staff.ID) == "0")
                                     staffs.Add(staff);
                                 }
                                 catch (SqlNullValueException)
@@ -76,6 +77,24 @@ namespace MilkWeb.Class
                 throw;
             }
             return staffs;
+        }
+        public static string GetRoleID(string UserID)
+        {
+            string URL = ConnectionURL.User;
+            SqlConnection connection = new SqlConnection(URL);
+            connection.Open();
+            string query = "Select RoleId from AspNetUserRoles where UserId = '" + UserID + "'";
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = query;
+            SqlDataReader reader = cmd.ExecuteReader();
+            string result;
+            if (reader.Read())
+            {
+                result = reader.GetString(0);
+            }
+            else result = "0";
+            connection.Close();
+            return result;
         }
     }
 }

@@ -1,3 +1,11 @@
 ﻿@{
-    Layout = "_Layout";
+    Layout = IsMobileDevice() ? "" : "_Layout";
+}
+@functions {
+    private bool IsMobileDevice()
+    {
+        // Check if the user agent indicates a mobile device
+        var userAgent = Context.Request.Headers["User-Agent"].ToString();
+        return userAgent.Contains("Android") || userAgent.Contains("iPhone");
+    }
 }

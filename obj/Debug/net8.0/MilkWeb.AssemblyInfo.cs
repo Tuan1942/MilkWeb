@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MilkWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fab08a54bca55198d7f8dff74f28587294c8aea1")]
 [assembly: System.Reflection.AssemblyProductAttribute("MilkWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MilkWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

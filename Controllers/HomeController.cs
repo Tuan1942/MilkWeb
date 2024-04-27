@@ -17,7 +17,14 @@ namespace MilkWeb.Controllers
         private readonly ILogger<HomeController> _logger;
         public IActionResult Home()
         {
-            return View(new Home());
+            if (GetRoleID() == "1")
+            {
+                return View(new Home());
+            }
+            else
+            {
+                return Redirect("~/Identity/Account/Login");
+            }
         }
         public IActionResult Specify(int orderID, string staffID)
         {
