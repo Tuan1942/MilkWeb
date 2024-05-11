@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MilkWeb.Migrations
+namespace FarmMilk.Migrations
 {
     /// <inheritdoc />
     public partial class MilkWebUser : Migration

@@ -1,19 +1,55 @@
 ﻿@model DeliveryHistory
-<table>
-    <tr>
-        <th>Mã</th>
-        <th>Thời gian nhận</th>
-    </tr>
+<body style="background-color: #a1baab;">
+    @if (Model.ListGoing.Count == 0)
+    {
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 300px;">
+            <div>
+                <img src="~/Image/OrderEmty.jpg" />
+            </div>
+            <div style="font-weight:bold; font-size: 20px;">
+                <p>Chưa có đơn hàng</p>
+            </div>
+        </div>
+    }
     @foreach (var order in Model.ListGoing)
     {
-        <tr>
-            <td>@order.ID</td>
-            <td>@order.Date</td>
-            <td><a type="" class="btn btn-primary" href="@Url.Action("OrderDetail", "Home", new { orderID = @order.ID })">Chi tiết đơn hàng</a></td>
-        </tr>
+        <div id="order-info" style="cursor: pointer; color: #516F5D; text-decoration: dashed;" onclick="redirectToOrderDetail(@order.ID)">
+        <div class="order-element id">Mã đơn hàng: @order.ID</div>
+        <div class="order-element date">Ngày đặt: @order.Date</div>
+        <div class="order-element address">@order.Address</div>
+        <div class="order-element price">Tiền thu: @order.Price đ</div>
+    </div>
     }
-</table>
+</body>
 <style>
+    #order-info {
+        border-radius: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .order-element {
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .id {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .date {
+        color:darkgray;
+        border-bottom: 1px solid #ccc;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
@@ -24,4 +60,10 @@
         text-align: left;
     }
 </style>
+<script>
+    function redirectToOrderDetail(orderID) {
+        var url = '@Url.Action("OrderDetail", "Home")' + '?orderID=' + orderID;
+        window.location.href = url;
+    }
+</script>
 

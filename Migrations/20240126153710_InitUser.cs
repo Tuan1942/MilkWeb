@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MilkWeb.Migrations
+namespace FarmMilk.Migrations
 {
     /// <inheritdoc />
     public partial class InitUser : Migration

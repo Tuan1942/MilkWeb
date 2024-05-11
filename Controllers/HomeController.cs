@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using MilkWeb.Class;
-using MilkWeb.Models;
+using FarmMilk.Class;
+using FarmMilk.Models;
 using NuGet.Protocol;
 using System.Diagnostics;
 using System.Security.Claims;
 
-namespace MilkWeb.Controllers
+namespace FarmMilk.Controllers
 {
     public class HomeController : Controller
     {
@@ -53,6 +53,7 @@ namespace MilkWeb.Controllers
         public IActionResult OrderDetail(int orderID)
         {
             ViewBag.Staff_ID = GetUserID();
+            ViewBag.Role = GetRoleID();
             return View(new ReceiveOrder(orderID));
         }
         public IActionResult DeliveryHistory() 
@@ -62,6 +63,14 @@ namespace MilkWeb.Controllers
         public IActionResult OrderDelivering()
         {
             return View(new DeliveryHistory(GetUserID()));
+        }
+        public IActionResult Search(string value)
+        {
+            while (value != null)
+            {
+                return Redirect("~/Home/OrderDetail?orderID=" + value);
+            }
+            return NoContent();
         }
         [HttpGet]
         public string GetUserID() 
@@ -79,6 +88,7 @@ namespace MilkWeb.Controllers
                 return "";
             }
         }
+        [HttpGet]
         public string GetRoleID()
         {
             string URL = ConnectionURL.User;
@@ -102,7 +112,7 @@ namespace MilkWeb.Controllers
             string URL = ConnectionURL.User;
             SqlConnection connection = new SqlConnection(URL);
             connection.Open();
-            string query = "Select Name from AspNetRoles where Id = '" + GetRoleID() + "'";
+            string query = "Select Name from [AspNetRoles] where Id = '" + GetRoleID() + "'";
             SqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = query;
             SqlDataReader reader = cmd.ExecuteReader();
@@ -119,6 +129,11 @@ namespace MilkWeb.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        private bool IsMobileRequest()
+        {
+            var userAgent = HttpContext.Request.Headers["User-Agent"].ToString();
+            return userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

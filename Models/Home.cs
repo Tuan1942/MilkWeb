@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using MilkWeb.Class;
-using MilkWeb.Controllers;
+using FarmMilk.Class;
+using FarmMilk.Controllers;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace MilkWeb.Models
+namespace FarmMilk.Models
 {
     public class Home : PageModel
     {
@@ -26,7 +26,7 @@ namespace MilkWeb.Models
                     ListCanceled.Add(order);
                     continue;
                 }
-                if (order.Received ==  true)
+                else if (order.Received ==  true)
                 {
                     ListReceived.Add(order);
                 }

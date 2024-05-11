@@ -14,10 +14,12 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MilkWeb.Areas.Identity.Data;
+using FarmMilk.Areas.Identity.Data;
 using Microsoft.Data.SqlClient;
+using FarmMilk.Class;
+using System.Security.Claims;
 
-namespace MilkWeb.Areas.Identity.Pages.Account
+namespace FarmMilk.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
@@ -84,34 +86,6 @@ namespace MilkWeb.Areas.Identity.Pages.Account
             [Display(Name = "Ghi nhớ đăng nhập?")]
             public bool RememberMe { get; set; }
         }
-        string getUserID()
-        {
-            string id = "";
-            try
-            {
-                string str = Class.ConnectionURL.User;
-                using (SqlConnection conn = new SqlConnection(str))
-                {
-                    conn.Open();
-                    string sql = "select [ID] from [AspNetUsers] where UserName = '" + Input.Email + "'";
-                    using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                id = reader.GetString(0);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return id;
-        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -143,7 +117,13 @@ namespace MilkWeb.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    if (GetRoleID() == "1")
+                    {
+                        return LocalRedirect(Url.Content("~/"));
+
+                    }
+                    else
+                        return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -164,5 +144,39 @@ namespace MilkWeb.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+        public string GetUserID()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            if (claimsIdentity.FindFirst(ClaimTypes.NameIdentifier) != null)
+            {
+                string ID = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).ToString();
+                string[] parts = ID.Split("nameidentifier:"); // Tách chuỗi
+                string result = parts[1].Trim(); // Lấy phần tử thứ hai và xóa khoảng trắng
+                return result;
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public string GetRoleID()
+        {
+            string URL = ConnectionURL.User;
+            SqlConnection connection = new SqlConnection(URL);
+            connection.Open();
+            string query = "Select RoleId from AspNetUserRoles where UserId = '" + GetUserID() + "'";
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = query;
+            SqlDataReader reader = cmd.ExecuteReader();
+            string result;
+            if (reader.Read())
+            {
+                result = reader.GetString(0);
+            }
+            else result = "0";
+            connection.Close();
+            return result;
+        }
+
     }
 }

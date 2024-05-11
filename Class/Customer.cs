@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data.SqlTypes;
 
-namespace MilkWeb.Class
+namespace FarmMilk.Class
 {
     public class Customer
     {
@@ -143,5 +143,46 @@ namespace MilkWeb.Class
             }
             return Customers;
         }
+        public List<Customer> Search(string Name)
+        {
+            List<Customer> Customers = new List<Customer>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConnectionURL.User))
+                {
+                    connection.Open();
+                    string sql = "Select * from Customer where Name like @Name;";
+                    using (SqlCommand cmd = new SqlCommand(sql, connection))
+                    {
+                        cmd.Parameters.AddWithValue("Name", Name);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                try
+                                {
+                                    Customer Customer = new Customer();
+                                    Customer.ID = reader.GetInt32(0);
+                                    Customer.Name = reader.GetString(1);
+                                    Customer.Phone = reader.GetString(2);
+                                    Customers.Add(Customer);
+                                }
+                                catch (SqlNullValueException)
+                                {
+                                    throw;
+                                }
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Customers;
+        }
+
     }
 }

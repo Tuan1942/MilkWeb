@@ -1,48 +1,65 @@
 ﻿@model ReceiveOrder
 @{
     var order = Model.order;
+    var customer = Model.customer;
 }
 <br />
 <br />
-<br />
-<br />
-<table id="OrderDetail">
-    <tr>
-        <td>Mã đơn hàng: </td>
-        <td>@order.ID</td>
-    </tr>
-    <tr>
-        <td>Tên khách hàng: </td>
-        <td>@Model.customer.Name</td>
-    </tr>
-    <tr>
-        <td>Ngày đặt hàng: </td>
-        <td>@order.Date</td>
-    </tr>
-    <tr>
-        <td>Địa chỉ: </td>
-        <td>@order.Address</td>
-    </tr>
-    <tr>
-        <td>Đơn giá: </td>
-        <td>@order.Price</td>
-    </tr>
-    <tr>
-        <td>Điện thoại: </td>
-        <td>@Model.customer.Phone</td>
-    </tr>
-</table>
-<table id="StaffList" class="table tab-content">
-    @foreach (var staff in Model.Staffs)
-    {
-        <tr>
-            <td>@staff.FirstName @staff.LastName</td>
-            <td><a class="btn btn-primary" href="@Url.Action("Specify", "Home", new { orderID = @order.ID, staffID = staff.ID })">Chỉ định nhân viên</a></td>
-        </tr>
-    }
-</table>
+<div style="width: 100%">
+    <div style="width:100%;">
+        <div id="order-info" >
+            <div class="id">Mã đơn hàng: @order.ID</div>
+            <div class="order-element">Khách hàng: @customer.Name</div>
+            <div class="order-element date">Ngày đặt: @order.Date</div>
+            <div class="order-element address">Địa chỉ: @order.Address</div>
+            <div class="order-element">Điện thoại: @customer.Phone</div>
+            <div class="order-element price">Tiền thu: @order.Price đ</div>
+        </div>
+    </div>
+    <table id="StaffList" class="">
+        @foreach (var staff in Model.Staffs)
+        {
+            <tr style="border-bottom: 1px solid black;">
+                <td >@staff.FirstName @staff.LastName</td>
+                <td>@staff.Email</td>
+                <td style="display: grid;justify-content:right;"><a class="btn btn-primary" href="@Url.Action("Specify", "Home", new { orderID = @order.ID, staffID = staff.ID })">Chỉ định nhân viên</a></td>
+            </tr>
+        }
+    </table>
+
+    </div>
+
 <style>
+    #StaffList {
+        width: 100%;
+        font-weight:bold;
+    }
     td {
         padding: 12px;
     }
+
+    #order-info {
+        border-radius: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-decoration: dashed;
+    }
+
+    .order-element {
+        margin-bottom: 5px;
+        font-size:20px;
+    }
+
+    .id {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .date {
+        color: darkgray;
+        border-bottom: 1px solid #ccc;
+    }
+
 </style>

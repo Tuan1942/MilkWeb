@@ -1,4 +1,4 @@
-﻿namespace MilkWeb.Class
+﻿namespace FarmMilk.Class
 {
     public class ConnectionURL
     {

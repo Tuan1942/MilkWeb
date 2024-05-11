@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace MilkWeb.Areas.Identity.Data;
+namespace FarmMilk.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the ShoesMVCUser class
 public class MilkWebUser : IdentityUser

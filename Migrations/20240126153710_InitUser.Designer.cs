@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MilkWeb.Areas.Identity.Data;
+using FarmMilk.Areas.Identity.Data;
 
 #nullable disable
 
-namespace MilkWeb.Migrations
+namespace FarmMilk.Migrations
 {
     [DbContext(typeof(MilkWebDbContext))]
     [Migration("20240126153710_InitUser")]
@@ -162,7 +162,7 @@ namespace MilkWeb.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MilkWeb.Areas.Identity.Data.MilkWebUser", b =>
+            modelBuilder.Entity("FarmMilk.Areas.Identity.Data.MilkWebUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -248,7 +248,7 @@ namespace MilkWeb.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MilkWeb.Areas.Identity.Data.MilkWebUser", null)
+                    b.HasOne("FarmMilk.Areas.Identity.Data.MilkWebUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -257,7 +257,7 @@ namespace MilkWeb.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MilkWeb.Areas.Identity.Data.MilkWebUser", null)
+                    b.HasOne("FarmMilk.Areas.Identity.Data.MilkWebUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -272,7 +272,7 @@ namespace MilkWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MilkWeb.Areas.Identity.Data.MilkWebUser", null)
+                    b.HasOne("FarmMilk.Areas.Identity.Data.MilkWebUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,7 +281,7 @@ namespace MilkWeb.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MilkWeb.Areas.Identity.Data.MilkWebUser", null)
+                    b.HasOne("FarmMilk.Areas.Identity.Data.MilkWebUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

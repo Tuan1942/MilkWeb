@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MilkWeb.Areas.Identity.Data;
-using MilkWeb.Class;
+using FarmMilk.Areas.Identity.Data;
+using FarmMilk.Class;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = ConnectionURL.User ?? throw new InvalidOperationException("Connection string 'ShoesMVCDbContextConnection' not found.");
 

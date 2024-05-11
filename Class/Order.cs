@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Data.SqlTypes;
 
-namespace MilkWeb.Class
+namespace FarmMilk.Class
 {
     public class Order
     {
@@ -13,7 +14,9 @@ namespace MilkWeb.Class
         public bool Received { get; set; }
         public bool Completed { get; set; }
         public bool Canceled { get; set; }
-        public decimal Price { get; set; }
+        public string Price { get; set; }
+        public int Product_ID { get; set; }
+        public int P_Num { get; set; }
         public Order() { }
         public Order(int iD)
         {
@@ -42,7 +45,9 @@ namespace MilkWeb.Class
                                 Received = reader.GetBoolean(5);
                                 Completed = reader.GetBoolean(6);
                                 Canceled = reader.GetBoolean(7);
-                                Price = reader.IsDBNull(8) ? 0 : reader.GetDecimal(8);
+                                Price = (reader.GetDecimal(8)).ToString("N0");
+                                Product_ID = reader.GetInt32(9);
+                                P_Num = reader.GetInt32(10);
                             }
                         }
                     }
@@ -191,7 +196,7 @@ namespace MilkWeb.Class
                                     order.Received = reader.GetBoolean(5);
                                     order.Completed = reader.GetBoolean(6);
                                     order.Canceled = reader.GetBoolean(7);
-                                    order.Price = reader.IsDBNull(8) ? 0 : reader.GetDecimal(8);
+                                    order.Price = (reader.GetDecimal(8)).ToString("N0");
                                     orders.Add(order);
                                 }
                                 catch (SqlNullValueException) {
@@ -236,7 +241,7 @@ namespace MilkWeb.Class
                                     order.Received = reader.GetBoolean(5);
                                     order.Completed = reader.GetBoolean(6);
                                     order.Canceled = reader.GetBoolean(7);
-                                    order.Price = reader.IsDBNull(8) ? 0 : reader.GetDecimal(8);
+                                    order.Price = (reader.GetDecimal(8)).ToString("N0");
                                     orders.Add(order);
                                 }
                                 catch (SqlNullValueException)

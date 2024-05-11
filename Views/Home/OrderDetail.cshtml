@@ -1,45 +1,113 @@
 ﻿@model ReceiveOrder
+@using FarmMilk.Class
 @{
     var order = Model.order;
     var customer = Model.customer;
+    var product = Model.product;
 }
-<br />
-<br />
-<br />
-<br />
-<table class="table tab-content">
-    <tr>
-        <td id="AttributeName">Tên khách hàng:</td>
-        <td id="Value">@customer.Name</td>
-    </tr>
-    <tr>
-        <td id="AttributeName">Địa chỉ:</td>
-        <td id="Value">@order.Address </td>
-    </tr>
-    <tr>
-        <td id="AttributeName">Ngày nhận đơn:</td>
-        <td id="Value">@order.Date</td>
-    </tr>
-    <tr>
-        <td id="AttributeName">Đơn giá:</td>
-        <td id="Value">@order.Price</td>
-    </tr>
-    <tr>
-        <td id="AttributeName">Điện thoại:</td>
-        <td id="Value">@customer.Phone</td>
-    </tr>
-</table>
-@if (@ViewBag.Staff_ID != "")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="./js/site.js"></script>
+@if (order.ID == 0)
 {
-    @if (order.Completed == false && order.Canceled == false)
-    {
-        <div id="Button-group">
-            <a style="" class="btn btn-primary" href="@Url.Action("CompleteOrder", "Home", new { orderID = @order.ID })">Hoàn thành</a>
-            <a style="" class="btn btn-danger" href="@Url.Action("CancelOrder", "Home", new { orderID = @order.ID })">Huỷ đơn</a>
+    <nav>
+        <p class="text">Không tồn tại đơn hàng</p>
+    </nav>
+}
+else {
+<div class="header">
+    <nav>
+            <b><p class="text">Chi tiết hóa đơn:</p></b>
+    </nav>
+</div>
+<body>
+    <div class="content-box">
+        <table class="table tab-content">
+            <tr>
+                <td id="AttributeName">Tên khách hàng:</td>
+                <td id="Value">@customer.Name</td>
+            </tr>
+            <tr>
+                <td id="AttributeName">Địa chỉ:</td>
+                <td id="Value">@order.Address </td>
+            </tr>
+            <tr>
+                <td id="AttributeName">Ngày nhận đơn:</td>
+                <td id="Value">@order.Date</td>
+            </tr>
+            <tr>
+                <td id="AttributeName">Đơn giá:</td>
+                <td id="Value">@order.Price</td>
+            </tr>
+            <tr>
+                <td id="AttributeName">Điện thoại:</td>
+                <td id="Value">@customer.Phone</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <p class="text">Danh sách sản phẩm</p>
+    </div>
+    <table class="list">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng đặt</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@product.ProductName</td>
+                <td>@order.P_Num</td>
+                <td>@order.Price</td>
+            </tr>
+            <!-- Add more rows for other products -->
+        </tbody>
+    </table>
+    <div>
+        @if (@ViewBag.Staff_ID == order.Staff_ID)
+            {
+                @if (order.Completed == false && order.Canceled == false)
+                {
+                    <div id="Button-group">
+                        <a style="margin-right:20px;" class="btn btn-primary" href="@Url.Action("CompleteOrder", "Home", new { orderID = @order.ID })">Hoàn thành</a>
+                        <a style="" class="btn btn-danger" href="@Url.Action("CancelOrder", "Home", new { orderID = @order.ID })">Huỷ đơn</a>
+                    </div>
+                }
+            }
+        @if (@ViewBag.Role == "1")
+            {
+                @if (order.Completed == false && order.Canceled == false)
+                {
+                    <div id="Button-group">
+                        <a style="margin-right:20px;" class="btn btn-primary" href="@Url.Action("ReceiveOrder", "Home", new { orderID = @order.ID })">Nhận đơn</a>
+                        <a style="" class="btn btn-danger" href="@Url.Action("CancelOrder", "Home", new { orderID = @order.ID })">Huỷ đơn</a>
+                    </div>
+                }
+                <br />
+                @if (order.Received == true && order.Staff_ID != null)
+                {
+                    Staff staff = new Staff();
+                    staff.OnGet(order.Staff_ID);
+                    <b>Nhân viên giao hàng:</b>
+                    <table style="" id="" class="">
+                        <tr style="border-bottom: 1px solid black;">
+                            <td>@staff.FirstName @staff.LastName</td>
+                            <td>@staff.Email</td>
+                        </tr>
+                    </table>
+                }
+            }
         </div>
-    }
+    </body>
 }
 <style>
+    .header {
+        background-color: #668C75; /* Màu nền cho header */
+        color: #fff; /* Màu chữ cho header */
+        padding: 1px; /* Khoảng cách giữa nội dung và viền header */
+    }
+
     #AttributeName {
         text-align: left;
     }
@@ -50,10 +118,34 @@
 
     #Button-group {
         display: flex;
-        justify-content: space-between;
-        position: fixed;
+        justify-content:space-between;
         bottom: 0;
-        width: calc(100% - 20px); 
+        width: calc(100% - 20px);
         padding: 10px;
+    }
+
+    .content-box {
+        border: 1px solid #ccc; /* Độ dày và màu sắc của đường viền */
+        padding: 20px; /* Khoảng cách giữa nội dung và viền */
+        /* Thêm các kiểu khác (như bo góc, màu nền) tùy theo ý muốn */
+    }
+
+    .list {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .text {
+        font-size: 26px;
     }
 </style>

@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MilkWeb.Areas.Identity.Data;
+using FarmMilk.Areas.Identity.Data;
 
-namespace MilkWeb.Areas.Identity.Data;
+namespace FarmMilk.Areas.Identity.Data;
 
 public class MilkWebDbContext : IdentityDbContext<MilkWebUser>
 {

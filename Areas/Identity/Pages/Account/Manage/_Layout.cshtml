@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.Data.SqlClient
+@using FarmMilk.Class
+@using System.Security.Claims
+@{
     Layout = "/Areas/Identity/Pages/_Layout.cshtml";
 }
 
@@ -13,9 +16,135 @@
             @RenderBody()
         </div>
     </div>
-
 </div>
+<!--
+@{
+    string GetUserID()
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        if (claimsIdentity.FindFirst(ClaimTypes.NameIdentifier) != null)
+        {
+            string ID = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).ToString();
+            string[] parts = ID.Split("nameidentifier:"); // Tách chuỗi
+            string result = parts[1].Trim(); // Lấy phần tử thứ hai và xóa khoảng trắng
+            return result;
+        }
+        else
+        {
+            return "";
+        }
+    }
+    string GetRoleID()
+    {
+        string URL = ConnectionURL.User;
+        SqlConnection connection = new SqlConnection(URL);
+        connection.Open();
+        string query = "Select RoleId from AspNetUserRoles where UserId = '" + GetUserID() + "'";
+        SqlCommand cmd = connection.CreateCommand();
+        cmd.CommandText = query;
+        SqlDataReader reader = cmd.ExecuteReader();
+        string result;
+        if (reader.Read())
+        {
+            result = reader.GetString(0);
+        }
+        else result = "0";
+        connection.Close();
+        return result;
+    }
+    string Role = "0";
+    async Task Main()
+    {
+        try
+        {
+            Role = GetRoleID();
+        }
+        catch (Exception)
+        {
+            Role = "1";
+        }
+    }
+    Main().Wait();
+}
+<br />
+@if (@Role == "0")
+{
+    <body class="Staff-only">
+        <div>
+            <div class="tab-container">
+                <div class="tab" onclick="openTab('Order')">Đơn hàng</div>
+                <div class="tab" onclick="openTab('MoneyIn')">Tiền thu</div>
+            </div>
+            <div id="Order" class="tab-content">1
+            </div>
+            <div id="MoneyIn" class="tab-content" style="display:none">2
+            </div>
+        </div>
+        <script>
+            function openTab(tabName) {
+            var tabContents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = 'none';
+            }
+            document.getElementById(tabName).style.display = 'block';
+            }
+        </script>
+        <style>
+            /* Optional: Style the buttons */
+            .tab-container {
+            display: flex;
+            width: 100%;
+            }
 
+            .tab {
+            flex: 1;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            text-align: center;
+            }
+
+            .tab:hover {
+            background-color: #ccc;
+            }
+
+            .tab-content {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            }
+
+            .tab-content.active {
+            display: block;
+            }
+
+            button {
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+            }
+
+            table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            }
+
+            th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            }
+        </style>
+    </body>
+}
+-->
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

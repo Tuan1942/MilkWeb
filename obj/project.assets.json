@@ -8258,11 +8258,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\Desktop\\MilkWeb\\MilkWeb\\MilkWeb.csproj",
-      "projectName": "MilkWeb",
-      "projectPath": "C:\\Users\\admin\\Desktop\\MilkWeb\\MilkWeb\\MilkWeb.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Downloads\\MilkWeb\\MilkWeb\\FARMMILK.csproj",
+      "projectName": "FARMMILK",
+      "projectPath": "C:\\Users\\admin\\Downloads\\MilkWeb\\MilkWeb\\FARMMILK.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\Desktop\\MilkWeb\\MilkWeb\\obj\\",
+      "outputPath": "C:\\Users\\admin\\Downloads\\MilkWeb\\MilkWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

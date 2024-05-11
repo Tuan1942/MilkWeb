@@ -1,13 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data.SqlTypes;
 
-namespace MilkWeb.Class
+namespace FarmMilk.Class
 {
     public class Staff
     {
         public string ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
         public Staff() { }
         public void OnGet(string iD)
         {
@@ -27,6 +28,7 @@ namespace MilkWeb.Class
                                 ID = reader.GetString(0);
                                 FirstName = reader.GetString(1);
                                 LastName = reader.GetString(2);
+                                Email = reader.GetString(5);
                             }
                         }
                     }
@@ -59,8 +61,51 @@ namespace MilkWeb.Class
                                     staff.ID = reader.GetString(0);
                                     staff.FirstName = reader.GetString(1);
                                     staff.LastName = reader.GetString(2);
+                                    staff.Email = reader.GetString(5);
                                     if (GetRoleID(staff.ID) == "0")
                                     staffs.Add(staff);
+                                }
+                                catch (SqlNullValueException)
+                                {
+                                    throw;
+                                }
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return staffs;
+        }
+        public static List<Staff> Search(string Name)
+        {
+            List<Staff> staffs = new List<Staff>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConnectionURL.User))
+                {
+                    connection.Open();
+                    string sql = "Select * from [AspNetUsers] " +
+                        "Where firstName like N'%" + Name + "%' or lastName like N'%" + Name + "%';";
+                    using (SqlCommand cmd = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                try
+                                {
+                                    Staff staff = new Staff();
+                                    staff.ID = reader.GetString(0);
+                                    staff.FirstName = reader.GetString(1);
+                                    staff.LastName = reader.GetString(2);
+                                    staff.Email = reader.GetString(5);
+                                    if (GetRoleID(staff.ID) == "0")
+                                        staffs.Add(staff);
                                 }
                                 catch (SqlNullValueException)
                                 {

@@ -1,6 +1,6 @@
-﻿using MilkWeb.Class;
+﻿using FarmMilk.Class;
 
-namespace MilkWeb.Models
+namespace FarmMilk.Models
 {
     public class DeliveryHistory
     {

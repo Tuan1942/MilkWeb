@@ -20,10 +20,10 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using MilkWeb.Areas.Identity.Data;
-using MilkWeb.Class;
+using FarmMilk.Areas.Identity.Data;
+using FarmMilk.Class;
 
-namespace MilkWeb.Areas.Identity.Pages.Account
+namespace FarmMilk.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

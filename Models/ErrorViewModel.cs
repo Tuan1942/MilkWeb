@@ -1,4 +1,4 @@
-namespace MilkWeb.Models
+namespace FarmMilk.Models
 {
     public class ErrorViewModel
     {

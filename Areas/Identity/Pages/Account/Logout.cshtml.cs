@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MilkWeb.Areas.Identity.Data;
+using FarmMilk.Areas.Identity.Data;
 
-namespace MilkWeb.Areas.Identity.Pages.Account
+namespace FarmMilk.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {

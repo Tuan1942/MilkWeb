@@ -6,18 +6,15 @@
 <script src="./js/site.js"></script>
 @{
 }
-<br />
-<br />
-<br />
-<br />
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* Optional: Style the buttons */
         .tab-container {
             display: flex;
             width: 100%;
+            font-weight: bold;
+            border:1px solid black;
         }
 
         .tab {
@@ -32,12 +29,13 @@
             .tab:hover {
                 background-color: #ccc;
             }
-
+        
         .tab-content {
             flex: 1;
             padding: 10px;
-            border: 1px solid #ccc;
             margin-top: 10px;
+            width: 100%;
+            
         }
 
             .tab-content.active {
@@ -61,13 +59,23 @@
         }
 
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid black;
             padding: 8px;
             text-align: center;
+        }
+        .btn {
+            background-color: #668C75;
+            border: #668C75;
         }
     </style>
 </head>
 <body>
+    <h1 style="font-size: 25px;">Quản lý đơn hàng</h1>
+    <form action="Home/Search" method="get" style="margin: 20px 0 20px;">
+        <input type="text" name="value" placeholder="Nhập mã đơn hàng...">
+        <button type="submit" class="btn">Tìm kiếm</button>
+    </form>
+
     <div class="tab-container">
         <div class="tab" onclick="openTab('All')">Tất cả đơn hàng</div>
         <div class="tab" onclick="openTab('ListWait')">Đang chờ xác nhận</div>
@@ -78,7 +86,7 @@
     </div>
 
     <div id="All" class="tab-content">
-        <table>
+        <table style="border:1px solid black">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -95,9 +103,9 @@
                     <tr>
                         <td>@order.ID</td>
                         @{
-                            MilkWeb.Class.Customer customer = new MilkWeb.Class.Customer();
-                            MilkWeb.Class.Staff staff = new MilkWeb.Class.Staff();
-                            customer.OnGet(order.ID);
+                            FarmMilk.Class.Customer customer = new FarmMilk.Class.Customer();
+                            FarmMilk.Class.Staff staff = new FarmMilk.Class.Staff();
+                            customer.OnGet(order.Customer_ID);
                             try
                             {
                                 staff.OnGet(order.Staff_ID);
@@ -114,7 +122,7 @@
                         }
                         else
                         {
-                            <td>Chưa có nhân viên <a type="" class="btn btn-primary" href="@Url.Action("ReceiveOrder", "Home", new { orderID = @order.ID })">Chỉ định</a></td>
+                            <td>Chưa có nhân viên <a type="" class="" href="@Url.Action("ReceiveOrder", "Home", new { orderID = @order.ID })">Chỉ định</a></td>
                         }
                         <td>@order.Date</td>
                         <td>@order.Address</td>
@@ -142,9 +150,9 @@
                     <tr>
                         <td>@order.ID</td>
                         @{
-                            MilkWeb.Class.Customer customer = new MilkWeb.Class.Customer();
-                            MilkWeb.Class.Staff staff = new MilkWeb.Class.Staff();
-                            customer.OnGet(order.ID);
+                            FarmMilk.Class.Customer customer = new FarmMilk.Class.Customer();
+                            FarmMilk.Class.Staff staff = new FarmMilk.Class.Staff();
+                            customer.OnGet(order.Customer_ID);
                             try
                             {
                                 staff.OnGet(order.Staff_ID);
@@ -183,9 +191,9 @@
                     <tr>
                         <td>@order.ID</td>
                         @{
-                            MilkWeb.Class.Customer customer = new MilkWeb.Class.Customer();
-                            MilkWeb.Class.Staff staff = new MilkWeb.Class.Staff();
-                            customer.OnGet(order.ID);
+                            FarmMilk.Class.Customer customer = new FarmMilk.Class.Customer();
+                            FarmMilk.Class.Staff staff = new FarmMilk.Class.Staff();
+                            customer.OnGet(order.Customer_ID);
                             try
                             {
                                 staff.OnGet(order.Staff_ID);
@@ -199,7 +207,6 @@
                         <td>@order.Date</td>
                         <td>@order.Address</td>
                         <td>@order.Price</td>
-                        <td><a type="" class="btn btn-primary" href="@Url.Action("OrderDetail", "Home", new { orderID = @order.ID })">Chi tiết đơn hàng</a></td>
                         <td><a type="" class="btn btn-primary" href="@Url.Action("OrderDetail", "Home", new { orderID = @order.ID })">Chi tiết đơn hàng</a></td>
                     </tr>
                 }
@@ -224,9 +231,9 @@
                     <tr>
                         <td>@order.ID</td>
                         @{
-                            MilkWeb.Class.Customer customer = new MilkWeb.Class.Customer();
-                            MilkWeb.Class.Staff staff = new MilkWeb.Class.Staff();
-                            customer.OnGet(order.ID);
+                            FarmMilk.Class.Customer customer = new FarmMilk.Class.Customer();
+                            FarmMilk.Class.Staff staff = new FarmMilk.Class.Staff();
+                            customer.OnGet(order.Customer_ID);
                             try
                             {
                                 staff.OnGet(order.Staff_ID);
@@ -272,9 +279,9 @@
                     <tr>
                         <td>@order.ID</td>
                         @{
-                            MilkWeb.Class.Customer customer = new MilkWeb.Class.Customer();
-                            MilkWeb.Class.Staff staff = new MilkWeb.Class.Staff();
-                            customer.OnGet(order.ID);
+                            FarmMilk.Class.Customer customer = new FarmMilk.Class.Customer();
+                            FarmMilk.Class.Staff staff = new FarmMilk.Class.Staff();
+                            customer.OnGet(order.Customer_ID);
                             try
                             {
                                 staff.OnGet(order.Staff_ID);
@@ -320,9 +327,9 @@
                     <tr>
                         <td>@order.ID</td>
                         @{
-                            MilkWeb.Class.Customer customer = new MilkWeb.Class.Customer();
-                            MilkWeb.Class.Staff staff = new MilkWeb.Class.Staff();
-                            customer.OnGet(order.ID);
+                            FarmMilk.Class.Customer customer = new FarmMilk.Class.Customer();
+                            FarmMilk.Class.Staff staff = new FarmMilk.Class.Staff();
+                            customer.OnGet(order.Customer_ID);
                             try
                             {
                                 staff.OnGet(order.Staff_ID);
@@ -359,5 +366,4 @@
             document.getElementById(tabName).style.display = 'block';
         }
     </script>
-
 </body>
